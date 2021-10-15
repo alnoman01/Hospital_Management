@@ -65,3 +65,21 @@ $(function() {
     
 
 });
+
+//Reg Form
+const doctor_reg = document.getElementById('doctor');
+const patient_reg = document.getElementById('patient');
+const doctor_reg_info = document.getElementById('doc_reg');
+doctor_reg.addEventListener("click", function () {
+  doctor_reg_info.style.display = "block";
+  
+});
+
+patient_reg.addEventListener("click", function () {
+  doctor_reg_info.style.display = "none";
+  
+});
+
+//bed_booking
+
+

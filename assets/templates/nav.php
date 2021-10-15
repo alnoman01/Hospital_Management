@@ -33,14 +33,14 @@
                     <div id="menu" class="col-lg-6 col-md-9 d-none d-md-block nav-item">
                         <ul>
                             <li><a href="index.php">Home</a></li>
-                            <li><a href="about_us.php">About Us</a></li>
-                            <li><a href="services.php">Services</a></li>
+                            <li><a href="about_us.php">About</a></li>
+                            <li><a href="dashboard.php">Dashboard</a></li>
                             <li><a href="news.php">News</a></li>  
                             <li><a href="contact_us.php">Contact</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-4 d-none d-lg-block appoint">
-                        <button class="btn btn-info">Book an Appointment</button>
+                        <button class="btn btn-info"><a class="btn_color" href="doctor_find.php">Book an Appointment</a></button>
                         <button class="btn btn-info "><a class="btn_color" href="login_form.php">Log In </a></button>
                     </div>
                 </div>

@@ -13,13 +13,14 @@
       $degree = $_POST['degree'];
       $expert_in = $_POST['expert_in'];
       $pass = $_POST['password'];
+      $role = $_POST['user_role'];
       
 
       
 
       include_once('db_connection.php');
 
-      $sql = "INSERT INTO doc_registration(first_name,last_name,dob,phone_number,sex,email,d_degree,d_expert_in,address,d_password) VALUES ('$first_name','$last_name','$dob','$ph_number','$gender','$email','$address','$degree','$expert_in','$pass')";
+      $sql = "INSERT INTO user_registration(first_name,last_name,dob,phone_number,sex,email,address,user_role,d_degree,d_expert_in,d_password) VALUES ('$first_name','$last_name','$dob','$ph_number','$gender','$email','$address','$role','$degree','$expert_in','$pass')";
 //echo $sql; die;
      $db_con->query($sql);
 
@@ -48,7 +49,7 @@
           <div class="col-md-7 py-5">
             <h3>Doctor Register</h3>
             <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
-            <form action="doc_reg.php" method="post">
+            <form action="user_reg.php" method="post">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group first">
@@ -107,21 +108,6 @@
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="degree">Degree</label>
-                    <input name="degree" type="text" class="form-control" placeholder="e.g. MBBS" id="fname">
-                  </div>    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="expertin">Expert In</label>
-                    <input name="expert_in" type="text" class="form-control" placeholder="e.g. Neurology" id="lname">
-                  </div>    
-                </div>
-              </div>              
-               
               
               <div class="row">
                 <div class="col-md-6">
@@ -138,6 +124,42 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                
+                <div class="col-md-6">
+                  <div class="form-group ">
+                    <?php 
+                        include_once('db_connection.php');
+                        $sql = "SELECT * FROM role"; 
+                    ?>
+                    <label for="expert_in">Role:</label>
+                    <input type="radio" id="patient" name="user_role" value="patient">
+                    <label for="html">Patient</label>
+                    <input type="radio" id="doctor" name="user_role" value="doctor">
+                    <label for="html">Doctor</label>
+                
+                  
+                  </div>    
+                </div>
+              </div>
+
+              <div class="row" id="doc_reg">
+                <div class="col-md-6">
+                  <div class="form-group first">
+                    <label for="degree">Degree</label>
+                    <input name="degree" type="text" class="form-control" placeholder="e.g. MBBS" id="degree">
+                  </div>    
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group first">
+                    <label for="expert_in">Expert In</label>
+                    <input name="expert_in" type="text" class="form-control" placeholder="e.g. Neuro" id="expertin">
+                  </div>    
+                </div>
+              </div>
+
+              
 
               <input name="register" type="submit" value="Register" class="btn px-5 btn-primary">
 

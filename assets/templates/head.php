@@ -1,10 +1,11 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Free Medical Hospital Website Template | Smarteyeapps.com</title>
+    <title> Hospital Management</title>
 
     <link rel="shortcut icon" href="assets/images/fav.jpg">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">

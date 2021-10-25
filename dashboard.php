@@ -1,4 +1,5 @@
-﻿<?php 
+﻿
+<?php 
     include_once('../HospitalManagement/assets/templates/dash_head.php');
 	include_once('../HospitalManagement/assets/templates/dash_nav.php');
     include_once('../HospitalManagement/assets/templates/dash_side_nav.php');

@@ -1,3 +1,22 @@
+<?php
+  if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+ 
+
+      $doctor_id = $_POST['doctor_name'];
+      $disease_symtoms_id = $_POST['disease_symtoms_id'];
+      include_once('db_connection.php');
+
+      $sql = "INSERT INTO search_doctor_with_diseses(doctor_id,disease_symtoms_id) VALUES ('$doctor_id','$disease_symtoms_id')";
+    //echo $sql; die;
+     $db_con->query($sql);
+
+     header('location:doctor_expert_section.php?msg=You Registered Successfully');exit;
+
+  }else{
+
+?>
+
 
 <?php 
     include_once('../HospitalManagement/assets/templates/dash_head.php');
@@ -9,7 +28,7 @@
 <div id="page-wrapper" >
 	<div class="header"> 
             <h1 class="page-header">
-                    Doctor Information
+                    Doctor Expertin Section
             </h1>	
 	</div>
     <div class="row">
@@ -22,34 +41,45 @@
                     <div class="card-content">
                                     
 
-                        <form action="diseases_symptoms.php" method="post">
+                        <form action="doctor_expert_section.php" method="post">
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                    <div class="form-group first">
-                                        <label for="dname">Doctor Name</label>
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Doctor Name...">
-                                            <datalist id="datalistOptions">
-                                            <option value="San Francisco">
-                                            <option value="New York">
-                                            <option value="Seattle">
-                                            <option value="Los Angeles">
-                                            <option value="Chicago">
-                                            </datalist>
-                                    </div>    
+                                    
+                                            <label for="doctor_name">Doctor Name:</label>
+                                            
+                                                <select name="doctor_name" id="doctor_name" style="display:block;">
+
+                                                <option value=""> Select a Doctor</option>
+                                                    <?php 
+                                                include_once('db_connection.php');
+                                                $sql = "SELECT * FROM user_registration WHERE user_role = 'doctor'";
+                                                $results = $db_con->query($sql);
+                                                foreach($results as $result){
+                                                ?>
+                                                    <option value="<?php echo $result['id']?>;"> <?php echo $result['first_name'] ?> <?php echo $result['last_name'] ?> </option>
+                                                    <?php } ?>
+                                                </select> 
+                                        
                                     </div>
                                     <div class="col-md-6">
-                                    <div class="form-group first">
-                                        <label for="disease_name"> Disease Name </label>
-                                        <input name="disease_name" class="form-control" list="datalistOptions" id="disease_name" placeholder="Disease Name...">
-                                            <datalist id="datalistOptions">
-                                            <option value="San Francisco">
-                                            <option value="New York">
-                                            <option value="Seattle">
-                                            <option value="Los Angeles">
-                                            <option value="Chicago">
-                                            </datalist>
-                                    </div>    
+                                    <label for="doctor_name">Disease Name:</label>
+                                            
+                                            <select name="disease_symtoms_id" id="disease_symtoms_id" style="display:block;">
+
+                                                <option value=""> Select Disease</option>
+                                   
+                                                    <?php 
+                                                        include_once('db_connection.php');
+                                                        $sql = "SELECT * FROM disease_name_symptoms";
+                                                        $outputs = $db_con->query($sql);
+                                                        foreach($outputs as $output){
+                                                    ?>
+                                                <option value="<?php echo $output['id']?>"> <?php echo $output['disease_name'] ?> </option>
+                                                    <?php } ?>
+                                            </select>
+                                        
+                                        
                                     </div>
                                 </div>
 
@@ -76,7 +106,7 @@
 
 <?php 
     include_once('../HospitalManagement/assets/templates/dash_footer.php');
-?> 
+}?> 
 
 
 

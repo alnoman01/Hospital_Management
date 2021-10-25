@@ -6,10 +6,16 @@
     
 ?>
 
+<?php if(!isset($_SESSION['loggedin']) && $_SESSION['user_role'] ='doctor'){
+    
+	header('location:login_form.php');
+}
+?>
+
         <div id="page-wrapper" >
 		  <div class="header"> 
                         <h1 class="page-header">
-                             Patient Information
+                             Appointment Information
                         </h1>
 						 
 									
@@ -26,7 +32,7 @@
 
            <!-- Table start -->
            
-           
+           <?php $id = $_SESSION['user_id']; ?>
          
 		
             <div id="page-inner"> 
@@ -43,19 +49,20 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>First name</th>
-                                            <th>Last Name</th>
+                                            <th>Paitient First name</th>
+                                            <th>Paitient Last Name</th>
                                             <th>Date Of birth</th>
                                             <th>Phone Number</th>
                                             <th>Sex</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Password</th>
+                                            <th>Time</th>
+                                            
                                         </tr>
                                     </thead>
                                     <?php 
                                         include_once('db_connection.php');
-                                        $sql = "SELECT * FROM user_registration WHERE user_role = 'patient'";
+                                        $sql = "SELECT u.*, t.* FROM time as t
+                                        JOIN user_registration as u on t.appointment_id = u.id 
+                                        WHERE doctor_id = '$id'";
 
                         $results = $db_con->query($sql);
                         foreach($results as $result){
@@ -70,9 +77,8 @@
                                             <td><?php echo $result['dob'] ?></td>
                                             <td><?php echo $result['phone_number'] ?></td>
                                             <td><?php echo $result['sex'] ?></td>
-                                            <td><?php echo $result['email'] ?></td>
-                                            <td><?php echo $result['address'] ?></td>
-                                            <td><?php echo $result['d_password'] ?></td>
+                                            <td><?php echo $result['appointment_time'] ?></td>
+                                            
                                         </tr>
                                        
                                     </tbody><?php } ?>

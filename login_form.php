@@ -1,28 +1,42 @@
+<?php session_start(); ?>
 <?php
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-    
-
-      
+ 
       $email = $_POST['email'];
       $pass = $_POST['password'];
-      
-
-      
-
+	  $_SESSION['msg'] = '';
+		if(!isset($_SESSION['count'])){
+			$_SESSION['count'] = 0;
+		}
       include_once('db_connection.php');
 
-      $sql = "SELECT * FROM patient_registration WHERE email = '$email' AND p_password = '$pass'";
-	  
-
-	  
-
+      $sql = "SELECT * FROM user_registration WHERE email = '$email' AND d_password = '$pass'";
      $result = $db_con->query($sql);
-	 print_r($result);die;
-	 $obj = mysqli_fetch_object($result);
-	 echo $obj->sex;
-	 
-	 die;
+		
+		if($result->num_rows > 0){
+			
+			foreach($result AS $row){
+				$_SESSION['email'] = $row['email'];
+				$_SESSION['user_role'] = $row['user_role'];
+				$_SESSION['user_id'] = $row['id'];
+			}	
+			
+			$_SESSION['loggedin'] = true;
+			unset($_SESSION['count']);
+			//$_SESSION['msg'] = 'Loggedin successfully';	
+			header('location:index.php');
+		}else{
+			$_SESSION['count']++;
+			if($_SESSION['count'] >= 3){
+				setcookie('loginCounter', true, time() + (40*1));
+				$_SESSION['count'] = 0;
+			}
+			$_SESSION['msg'] = 'Invalid Login';	
+			header('location:login_form.php');
+		}
+
+		
+	
 
   
 
@@ -53,7 +67,11 @@
 						<div class="login-wrap p-4 p-md-5">
 			      	<div class="d-flex">
 			      		<div class="w-100">
-			      			<h3 class="mb-4">Sign In</h3>
+			      			<h3 class="mb-4">Sign In</h3><?php
+							  if(isset($_SESSION['msg'])){
+								  echo $_SESSION['msg'];
+								  unset ($_SESSION['msg']);
+							  }?>
 			      		</div>
 								<div class="w-100">
 									<p class="social-media d-flex justify-content-end">

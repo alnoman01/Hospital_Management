@@ -1,30 +1,28 @@
-<?php
-  if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-    
-
-      //$appointment_id = $_POST['1'];
-      $appointment_time = $_POST['appointment_time'];
-      $status = $_POST['status']; 
-
-      include_once('db_connection.php');
-
-      $sql = "INSERT INTO time(appointment_id,appointment_time,status) VALUES ('1','$appointment_time','$status')";
-//echo $sql; die;
-     $db_con->query($sql);
-
-     header('location:login_form.php?msg=You Registered Successfully');exit;
-
-  }else{
-
-
-    ?>
 
 <?php 
     include_once('../HospitalManagement/assets/templates/dash_head.php');
 	include_once('../HospitalManagement/assets/templates/dash_nav.php');
     include_once('../HospitalManagement/assets/templates/dash_side_nav.php');
     
+?>
+
+<?php if(!isset($_SESSION['loggedin']) AND $_SESSION['user_role'] == 'patient'){
+	header('location:login_form.php');
+}
+?>
+
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$date = $_POST['appointment_date'];
+    $id = $_POST['doctor_id'];
+
+
+include_once 'db_connection.php';
+
+
+$sql = "SELECT appointment_time FROM appointment WHERE date= '$date' AND user_id='$id' AND status=0";
+	$output = $db_con->query($sql);
+
 ?>
 
 <div id="page-wrapper" >
@@ -43,81 +41,35 @@
                     <div class="card-content">
                                     
 
-                        <form action="patient_appointment.php" method="post">
+                        <form action="patient_appointment_action.php" method="post">
+                        <label for="date" data-error="wrong" data-success="right" class="">Date</label>
+                        <input name="date" id="date" type="text" class="validate" value="<?php echo $date ?>" readonly>
+                               
+                            
                             
                             <h5>Input Slot</h5>
                             <div class="row">
+                                <?php 
+                                    if($output-> num_rows > 0){
+                                        $i=0;
+                                        foreach($output AS $row){ 
+                                            
+                                        
+                                ?>
                                 <div class="col-md-6">
                                     <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box" value="10.00"> 
-                                        <label for="filled-in-box">10.00</label>
+                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box<?php print $i; ?>" value="<?=$row['appointment_time']?>"> 
+                                        <label for="filled-in-box<?php print $i; ?>"><?=$row['appointment_time']?></label>
                                     </p>
-                                    <input name="status" type="hidden" value="1">
+                                    
                                 </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-2" value="10.30">
-                                        <label for="filled-in-box-2">10.30</label>
-                                    </p>
-                                </div>
+                                <?php $i++?>
+                                <?php  } }?>
+                                
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-3" value="11.00">
-                                        <label for="filled-in-box-3">11.00</label>
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-4" value="11.30">
-                                        <label for="filled-in-box-4">11.30</label>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-5" value="12.00">
-                                        <label for="filled-in-box-5">12.00</label>
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-6" value="12.30">
-                                        <label for="filled-in-box-6">12.30</label>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-7" value="13.00">
-                                        <label for="filled-in-box-7">13.00</label>
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-8" value="13.30">
-                                        <label for="filled-in-box-8">13.30</label>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-9" value="14.00">
-                                        <label for="filled-in-box-9">14.00</label>
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <input name="appointment_time" type="radio" class="filled-in" id="filled-in-box-10" value="14.30">
-                                        <label for="filled-in-box-10">14.30</label>
-                                    </p>
-                                </div>
-                            </div>
-
+                           
+                            <input type="hidden" name="status" value="1">
+                            <input type="hidden" name="doctor_id" value="<?php echo $id ?>">
                             <input name="register" type="submit" value="Register" class="btn px-5 btn-primary">
                             
                             

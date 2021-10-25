@@ -1,16 +1,17 @@
+<?php session_start(); ?>
 <?php
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     
 
-      //$user_id = $_POST['1'];
+      $user_id =$_SESSION['user_id'];
       $date = $_POST['date'];
       $appointment_times = $_POST['appointment_time']; 
       $time = "";
       foreach($appointment_times as $appointment_time){
       include_once('db_connection.php');
 
-      $sql = "INSERT INTO appointment(user_id,date,appointment_time) VALUES ('1','$date','$appointment_time')";
+      $sql = "INSERT INTO appointment(user_id,date,appointment_time) VALUES ('$user_id','$date','$appointment_time')";
 //echo $sql; die;
      $db_con->query($sql);}
 
@@ -46,7 +47,7 @@
                                     
 
                         <form action="doctor_appointment.php" method="post">
-                            <input name="date" id="date" type="date" class="validate" value="10.00">
+                            <input name="date" id="date" type="date" class="validate" >
                             <label for="date" data-error="wrong" data-success="right" class="">Date</label>
                             
                             <h5>Input Slot</h5>

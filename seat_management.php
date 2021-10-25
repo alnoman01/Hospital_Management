@@ -1,3 +1,25 @@
+<?php
+  if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+ 
+
+      $category = $_POST['seat'];
+      $seat_number = $_POST['seat_number'];
+
+      include_once('db_connection.php');
+
+      $sql = "INSERT INTO seat_management(category,seat_number) VALUES ('$category','$seat_number')";
+    //echo $sql; die;
+
+     $db_con->query($sql);
+
+     header('location:login_form.php?msg=You Registered Successfully');exit;
+
+  }else{
+
+
+    ?>
+
 <?php 
     include_once('../HospitalManagement/assets/templates/head.php');
     include_once('../HospitalManagement/assets/templates/nav.php');
@@ -15,7 +37,7 @@
           <div class="col-md-7 py-5">
             <h3>Booked Your Seat</h3>
             <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
-            <form action="user_reg.php" method="post">
+            <form action="seat_management.php" method="post">
             
 
 
@@ -34,23 +56,10 @@
                 </div>
               </div>
 
-              <div class="row" id="doc_reg">
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="degree">Degree</label>
-                    <input name="degree" type="text" class="form-control" placeholder="e.g. MBBS" id="degree">
-                  </div>    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="expert_in">Expert In</label>
-                    <input name="expert_in" type="text" class="form-control" placeholder="e.g. Neuro" id="expertin">
-                  </div>    
-                </div>
-              </div>
+
 
               <label for="expert_in">Seat Number</label>
-              <input name="expert_in" type="text" class="form-control" placeholder="e.g. Neuro" id="expertin">
+              <input name="seat_number" type="text" class="form-control" placeholder="e.g. Neuro" id="expertin">
 
               
 
@@ -67,4 +76,4 @@
     
 <?php 
     include_once('../HospitalManagement/assets/templates/footer.php');
-  ?>
+  }?>

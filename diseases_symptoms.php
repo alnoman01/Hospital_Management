@@ -9,10 +9,10 @@
       include_once('db_connection.php');
 
       $sql = "INSERT INTO disease_name_symptoms(disease_name,symptoms) VALUES ('$disease_name','$symptoms_name')";
-
+    //echo $sql; die;
      $db_con->query($sql);
 
-     header('location:login_form.php?msg=You Registered Successfully');exit;
+     header('location:diseases_symptoms.php?msg=You Registered Successfully');exit;
 
   }else{
 

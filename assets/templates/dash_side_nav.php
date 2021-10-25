@@ -36,7 +36,7 @@
                             </li>
 
                             <li>
-                                <a href="patient_appointment.php">Patient Appoinment</a>
+                                <a href="show_patient_appointment_info.php">Patient Appoinment</a>
                             </li>
                             <li>
                                 <a href="#">Second Level Link<span class="fa arrow"></span></a>
@@ -70,7 +70,7 @@
                                 <a href="doctor_info.php">Doctor Information</a>
                             </li>
                             <li>
-                                <a href="doctor_expertise.php">Doctor Experties</a>
+                                <a href="show_doctors_appointment.php">Doctor's Appointment</a>
                             </li>
                          
                         </ul>
@@ -90,6 +90,9 @@
                             </li>
                             <li>
                                 <a href="doctor_expertise.php">Doctor Experties</a>
+                            </li>
+                            <li>
+                                <a href="ambulance_input.php">Ambulance</a>
                             </li>
                          
                         </ul>
